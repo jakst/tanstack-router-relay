@@ -1,24 +1,15 @@
-import { RouterProvider, createRouter } from "@tanstack/react-router"
+import { RouterProvider } from "@tanstack/react-router"
 import React from "react"
 import ReactDOM from "react-dom/client"
-import { routeTree } from "./routeTree.gen"
-
-// Set up a Router instance
-const router = createRouter({
-	routeTree,
-	defaultPreload: "intent",
-})
-
-// Register things for typesafety
-declare module "@tanstack/react-router" {
-	interface Register {
-		router: typeof router
-	}
-}
+import { router } from "./router"
 
 const rootElement = document.getElementById("app")!
 
-if (!rootElement.innerHTML) {
+if (rootElement && !rootElement.innerHTML) {
 	const root = ReactDOM.createRoot(rootElement)
-	root.render(<RouterProvider router={router} />)
+	root.render(<App />)
+}
+
+function App() {
+	return <RouterProvider router={router} />
 }
